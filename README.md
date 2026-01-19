@@ -186,7 +186,7 @@ GeniusPay supporte : XOF, XAF, EUR, USD. Changez la devise dans WooCommerce > Pa
 
 ## 📞 Support
 
-- **Documentation** : [pay.genius.ci/docs](https://pay.genius.ci/docs)
+- **Documentation** : [pay.genius.ci/doc](https://pay.genius.ci/doc)
 - **Email** : pay@genius.ci
 - **Site web** : [pay.genius.ci](https://pay.genius.ci)
 
