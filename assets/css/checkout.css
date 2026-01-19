@@ -1,0 +1,246 @@
+/**
+ * GeniusPay WooCommerce - Checkout Styles
+ */
+
+/* Container principal */
+.geniuspay-payment-methods {
+    margin: 15px 0;
+}
+
+.geniuspay-payment-methods > p {
+    margin-bottom: 10px;
+}
+
+.geniuspay-payment-methods label:not(.geniuspay-method-option) {
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+    color: #333;
+}
+
+/* Options de méthode de paiement */
+.geniuspay-method-option {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #fff;
+}
+
+.geniuspay-method-option:hover {
+    border-color: #007cba;
+    background: #f8fafc;
+}
+
+.geniuspay-method-option:has(input:checked) {
+    border-color: #007cba;
+    background: #f0f7ff;
+    box-shadow: 0 0 0 1px #007cba;
+}
+
+.geniuspay-method-option input[type="radio"] {
+    margin-right: 12px;
+    width: 18px;
+    height: 18px;
+    accent-color: #007cba;
+}
+
+.geniuspay-method-icon {
+    font-size: 24px;
+    margin-right: 12px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Logos des méthodes de paiement */
+.geniuspay-method-logo {
+    height: 28px;
+    width: auto;
+    max-width: 50px;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+.geniuspay-method-emoji {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.geniuspay-card-logos {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.geniuspay-card-logos .geniuspay-method-logo {
+    height: 24px;
+    max-width: 40px;
+}
+
+.geniuspay-method-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Notice de checkout GeniusPay */
+.geniuspay-checkout-notice {
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    margin: 15px 0;
+}
+
+.geniuspay-checkout-notice p {
+    margin: 0 0 12px 0;
+    color: #475569;
+    font-size: 14px;
+}
+
+.geniuspay-methods-preview {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.geniuspay-methods-preview .geniuspay-method-logo {
+    height: 32px;
+    width: auto;
+    max-width: 60px;
+    object-fit: contain;
+    opacity: 0.9;
+    transition: opacity 0.2s ease;
+}
+
+.geniuspay-methods-preview .geniuspay-method-logo:hover {
+    opacity: 1;
+}
+
+/* Badge sandbox */
+.geniuspay-sandbox-notice {
+    margin-bottom: 15px;
+}
+
+.geniuspay-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.geniuspay-badge-warning {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffc107;
+}
+
+.geniuspay-badge-success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #28a745;
+}
+
+.geniuspay-badge-info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #17a2b8;
+}
+
+/* Page de remerciement */
+.geniuspay-thankyou {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid #007cba;
+}
+
+.geniuspay-thankyou p {
+    margin: 0 0 10px 0;
+}
+
+.geniuspay-thankyou p:last-child {
+    margin-bottom: 0;
+}
+
+.geniuspay-pending-notice {
+    color: #856404;
+    background: #fff3cd;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+/* Icône de la passerelle */
+.payment_method_geniuspay img {
+    max-height: 30px;
+    vertical-align: middle;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .geniuspay-method-option {
+        padding: 10px 12px;
+    }
+
+    .geniuspay-method-icon {
+        font-size: 20px;
+        margin-right: 10px;
+    }
+
+    .geniuspay-method-label {
+        font-size: 13px;
+    }
+}
+
+/* Animation de chargement */
+.geniuspay-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.geniuspay-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #007cba;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: geniuspay-spin 0.8s linear infinite;
+}
+
+@keyframes geniuspay-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Messages d'erreur */
+.geniuspay-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 12px 15px;
+    border-radius: 4px;
+    margin: 10px 0;
+    border: 1px solid #f5c6cb;
+}
+
+.geniuspay-error strong {
+    display: block;
+    margin-bottom: 5px;
+}

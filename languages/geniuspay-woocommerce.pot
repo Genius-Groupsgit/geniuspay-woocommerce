@@ -1,0 +1,266 @@
+# GeniusPay for WooCommerce
+# Copyright (C) 2025 GeniusPay
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: GeniusPay for WooCommerce 1.0.0\n"
+"Report-Msgid-Bugs-To: support@geniuspay.io\n"
+"POT-Creation-Date: 2025-12-14 12:00:00+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2025-MO-DA HO:MI+ZONE\n"
+"Last-Translator: GeniusPay <support@geniuspay.io>\n"
+"Language-Team: GeniusPay <support@geniuspay.io>\n"
+
+#: geniuspay-woocommerce.php
+msgid "GeniusPay for WooCommerce"
+msgstr ""
+
+#: geniuspay-woocommerce.php
+msgid "Paramètres"
+msgstr ""
+
+#: geniuspay-woocommerce.php
+msgid "Documentation"
+msgstr ""
+
+#: geniuspay-woocommerce.php
+msgid "nécessite WooCommerce pour fonctionner. Veuillez installer et activer WooCommerce."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "GeniusPay"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Acceptez les paiements Wave, Orange Money, MTN Money et carte bancaire via GeniusPay."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Activer/Désactiver"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Activer GeniusPay"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Titre"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Titre affiché au client lors du checkout."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Paiement Mobile & Carte"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Description"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Description affichée au client lors du checkout."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Payez en toute sécurité avec Wave, Orange Money, MTN Money ou votre carte bancaire."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Mode Sandbox"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Activer le mode sandbox (test)"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "En mode sandbox, aucune transaction réelle n'est effectuée."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Clé API Sandbox"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Votre clé API publique sandbox (pk_sandbox_...)."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Secret API Sandbox"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Votre clé API secrète sandbox (sk_sandbox_...)."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Clé API Production"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Votre clé API publique production (pk_live_...)."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Secret API Production"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Votre clé API secrète production (sk_live_...)."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Méthodes de paiement"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Sélectionnez les méthodes de paiement à proposer."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Wave"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Orange Money"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "MTN Money"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Moov Money"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Carte bancaire"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Configuration Webhook"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Configurez cette URL dans votre tableau de bord GeniusPay :"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Secret Webhook"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Secret pour vérifier l'authenticité des webhooks."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Mode Debug"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Activer les logs de débogage"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Les logs sont enregistrés dans WooCommerce > État > Logs."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Mode Test"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Choisissez votre méthode de paiement"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Veuillez sélectionner une méthode de paiement."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Méthode de paiement invalide."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Commande introuvable."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Commande #%s"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Erreur lors de la création du paiement: "
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Réponse invalide de GeniusPay."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "En attente du paiement GeniusPay."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Référence de paiement:"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Votre paiement est en cours de traitement. Vous recevrez une confirmation par email."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Référence de paiement GeniusPay:"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Les clés API ne sont pas configurées. %sConfigurer maintenant%s"
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Le mode sandbox est activé. Aucune transaction réelle ne sera effectuée."
+msgstr ""
+
+#: includes/class-geniuspay-gateway.php
+msgid "Les remboursements automatiques ne sont pas encore disponibles. Veuillez contacter le support GeniusPay."
+msgstr ""
+
+#: includes/class-geniuspay-webhook.php
+msgid "Paiement GeniusPay reçu. Référence: %s"
+msgstr ""
+
+#: includes/class-geniuspay-webhook.php
+msgid "Paiement GeniusPay échoué. Raison: %s"
+msgstr ""
+
+#: includes/class-geniuspay-webhook.php
+msgid "Non spécifiée"
+msgstr ""
+
+#: includes/class-geniuspay-webhook.php
+msgid "Paiement GeniusPay annulé par le client."
+msgstr ""
+
+#: includes/class-geniuspay-webhook.php
+msgid "Paiement GeniusPay en cours de traitement."
+msgstr ""
+
+#: includes/class-geniuspay-webhook.php
+msgid "Remboursement GeniusPay"
+msgstr ""
+
+#: includes/class-geniuspay-webhook.php
+msgid "Remboursement GeniusPay de %s reçu."
+msgstr ""
+
+#: includes/class-geniuspay-api.php
+msgid "Erreur API GeniusPay"
+msgstr ""
+
+#: includes/class-geniuspay-api.php
+msgid "Clés API non configurées"
+msgstr ""

@@ -1,0 +1,149 @@
+/**
+ * GeniusPay WooCommerce - Admin Styles
+ */
+
+/* Section webhook */
+.geniuspay-webhook-url {
+    background: #f0f0f1;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 13px;
+    word-break: break-all;
+    margin: 10px 0;
+}
+
+/* Badges de mode */
+.geniuspay-mode-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-left: 10px;
+}
+
+.geniuspay-mode-sandbox {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.geniuspay-mode-live {
+    background: #d4edda;
+    color: #155724;
+}
+
+/* Table des transactions */
+.geniuspay-transactions-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.geniuspay-transactions-table th,
+.geniuspay-transactions-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.geniuspay-transactions-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+}
+
+/* Statuts */
+.geniuspay-status {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.geniuspay-status-completed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.geniuspay-status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.geniuspay-status-failed {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.geniuspay-status-cancelled {
+    background: #e2e3e5;
+    color: #383d41;
+}
+
+/* Informations de la commande */
+.geniuspay-order-info {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 4px;
+    margin: 15px 0;
+    border-left: 4px solid #007cba;
+}
+
+.geniuspay-order-info h4 {
+    margin: 0 0 10px 0;
+    color: #007cba;
+}
+
+.geniuspay-order-info table {
+    width: 100%;
+}
+
+.geniuspay-order-info table td {
+    padding: 5px 10px 5px 0;
+}
+
+.geniuspay-order-info table td:first-child {
+    font-weight: 600;
+    width: 150px;
+}
+
+/* Test de connexion */
+.geniuspay-test-connection {
+    margin-top: 10px;
+}
+
+.geniuspay-test-connection .button {
+    margin-right: 10px;
+}
+
+.geniuspay-test-result {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+
+.geniuspay-test-success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.geniuspay-test-error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Notice admin */
+.geniuspay-admin-notice {
+    border-left-color: #007cba;
+}
+
+.geniuspay-admin-notice.notice-warning {
+    border-left-color: #ffc107;
+}
+
+.geniuspay-admin-notice.notice-error {
+    border-left-color: #dc3545;
+}
