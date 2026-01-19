@@ -21,7 +21,7 @@ Extension WordPress pour accepter les paiements via GeniusPay sur votre boutique
 - WordPress 5.8 ou supérieur
 - WooCommerce 5.0 ou supérieur
 - PHP 7.4 ou supérieur
-- Un compte marchand GeniusPay ([Créer un compte](https://pay.geniuspay.io))
+- Un compte marchand GeniusPay ([Créer un compte](https://pay.genius.ci))
 
 ## 📦 Installation
 
@@ -41,7 +41,7 @@ Extension WordPress pour accepter les paiements via GeniusPay sur votre boutique
 
 ### 1. Récupérer vos clés API
 
-1. Connectez-vous à votre [tableau de bord GeniusPay](https://pay.geniuspay.io/dashboard)
+1. Connectez-vous à votre [tableau de bord GeniusPay](https://pay.genius.ci/dashboard)
 2. Allez dans **Paramètres > API**
 3. Copiez vos clés Sandbox et/ou Production
 
@@ -186,9 +186,9 @@ GeniusPay supporte : XOF, XAF, EUR, USD. Changez la devise dans WooCommerce > Pa
 
 ## 📞 Support
 
-- **Documentation** : [docs.geniuspay.io](https://docs.geniuspay.io)
-- **Email** : support@geniuspay.io
-- **Site web** : [geniuspay.io](https://geniuspay.io)
+- **Documentation** : [pay.genius.ci/docs](https://pay.genius.ci/docs)
+- **Email** : pay@genius.ci
+- **Site web** : [pay.genius.ci](https://pay.genius.ci)
 
 ## 📄 Licence
 
@@ -200,5 +200,6 @@ Ce plugin est distribué sous licence GPL-2.0+. Voir le fichier [LICENSE](LICENS
 - Version initiale
 - Support Wave, Orange Money, MTN Money, Moov Money
 - Support cartes via Paystack
+- Support des devises XOF, XAF, EUR, USD
 - Gestion des webhooks
 - Compatible HPOS WooCommerce
