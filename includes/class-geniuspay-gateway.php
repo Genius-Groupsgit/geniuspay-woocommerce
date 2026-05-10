@@ -35,7 +35,6 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
         $this->method_description = __('Acceptez les paiements Wave, Orange Money, MTN Money et carte bancaire via GeniusPay.', 'geniuspay-for-woocommerce');
         $this->supports = array(
             'products',
-            'refunds',
         );
 
         // Charger les paramètres
@@ -153,10 +152,11 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
                 'description' => __('Sélectionnez les méthodes de paiement à proposer (ignoré si la page de checkout GeniusPay est activée).', 'geniuspay-for-woocommerce'),
                 'default' => array('wave', 'orange_money', 'mtn_money', 'card'),
                 'options' => array(
-                    'wave' => __('Wave', 'geniuspay-for-woocommerce'),
+                    'wave'        => __('Wave', 'geniuspay-for-woocommerce'),
                     'orange_money' => __('Orange Money', 'geniuspay-for-woocommerce'),
-                    'mtn_money' => __('MTN Money', 'geniuspay-for-woocommerce'),
-                    'card' => __('Carte bancaire', 'geniuspay-for-woocommerce'),
+                    'mtn_money'   => __('MTN Money', 'geniuspay-for-woocommerce'),
+                    'moov_money'  => __('Moov Money', 'geniuspay-for-woocommerce'),
+                    'card'        => __('Carte bancaire', 'geniuspay-for-woocommerce'),
                 ),
                 'desc_tip' => true,
             ),
@@ -236,9 +236,11 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
             
             echo '</p>';
             echo '</div>';
-        } else {
+        } elseif (!empty($this->enabled_methods)) {
             // Une seule méthode, on la cache
             echo '<input type="hidden" name="geniuspay_payment_method" value="' . esc_attr($this->enabled_methods[0]) . '">';
+        } else {
+            wc_add_notice(__('Aucune méthode de paiement configurée.', 'geniuspay-for-woocommerce'), 'error');
         }
     }
 
@@ -286,7 +288,9 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
 
         // Préparer les données du paiement
         $payment_data = array(
-            'amount' => (int) ($order->get_total() * 100) / 100, // Montant en XOF (entier)
+            'amount' => in_array($order->get_currency(), array('XOF', 'XAF'))
+                ? (int) round($order->get_total())
+                : (int) round($order->get_total() * 100),
             'currency' => $order->get_currency(),
             /* translators: %s: Order number */
             'description' => sprintf(__('Commande #%s', 'geniuspay-for-woocommerce'), $order->get_order_number()),
@@ -296,7 +300,8 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
                 'phone' => $order->get_billing_phone(),
             ),
             'success_url' => $this->get_return_url($order),
-            'error_url' => wc_get_checkout_url() . '?geniuspay_error=1&order_id=' . $order_id,
+            'error_url'   => wc_get_checkout_url() . '?geniuspay_error=1&order_id=' . $order_id,
+            'webhook_url' => $this->get_webhook_url(),
             'metadata' => array(
                 'order_id' => $order_id,
                 'order_key' => $order->get_order_key(),
@@ -473,11 +478,12 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
      */
     private function get_payment_method_label($method) {
         $labels = array(
-            'wave' => __('Wave', 'geniuspay-for-woocommerce'),
+            'wave'        => __('Wave', 'geniuspay-for-woocommerce'),
             'orange_money' => __('Orange Money', 'geniuspay-for-woocommerce'),
-            'mtn_money' => __('MTN Money', 'geniuspay-for-woocommerce'),
-            'card' => __('Carte bancaire', 'geniuspay-for-woocommerce'),
-            'paystack' => __('Paystack', 'geniuspay-for-woocommerce'),
+            'mtn_money'   => __('MTN Money', 'geniuspay-for-woocommerce'),
+            'moov_money'  => __('Moov Money', 'geniuspay-for-woocommerce'),
+            'card'        => __('Carte bancaire', 'geniuspay-for-woocommerce'),
+            'paystack'    => __('Paystack', 'geniuspay-for-woocommerce'),
         );
 
         return isset($labels[$method]) ? $labels[$method] : $method;
@@ -490,11 +496,12 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
         $logo_base_url = GENIUSPAY_WC_PLUGIN_URL . 'assets/images/logo/';
         
         $icons = array(
-            'wave' => '<img src="' . $logo_base_url . 'wave.svg" alt="Wave" class="geniuspay-method-logo">',
+            'wave'        => '<img src="' . $logo_base_url . 'wave.svg" alt="Wave" class="geniuspay-method-logo">',
             'orange_money' => '<img src="' . $logo_base_url . 'orange.svg" alt="Orange Money" class="geniuspay-method-logo">',
-            'mtn_money' => '<img src="' . $logo_base_url . 'mtn.svg" alt="MTN Money" class="geniuspay-method-logo">',
-            'card' => '<span class="geniuspay-card-logos"><img src="' . $logo_base_url . 'visa.svg" alt="Visa" class="geniuspay-method-logo"><img src="' . $logo_base_url . 'mastercard.svg" alt="Mastercard" class="geniuspay-method-logo"></span>',
-            'paystack' => '<span class="geniuspay-card-logos"><img src="' . $logo_base_url . 'visa.svg" alt="Visa" class="geniuspay-method-logo"><img src="' . $logo_base_url . 'mastercard.svg" alt="Mastercard" class="geniuspay-method-logo"></span>',
+            'mtn_money'   => '<img src="' . $logo_base_url . 'mtn.svg" alt="MTN Money" class="geniuspay-method-logo">',
+            'moov_money'  => '<img src="' . $logo_base_url . 'moov.svg" alt="Moov Money" class="geniuspay-method-logo">',
+            'card'        => '<span class="geniuspay-card-logos"><img src="' . $logo_base_url . 'visa.svg" alt="Visa" class="geniuspay-method-logo"><img src="' . $logo_base_url . 'mastercard.svg" alt="Mastercard" class="geniuspay-method-logo"></span>',
+            'paystack'    => '<span class="geniuspay-card-logos"><img src="' . $logo_base_url . 'visa.svg" alt="Visa" class="geniuspay-method-logo"><img src="' . $logo_base_url . 'mastercard.svg" alt="Mastercard" class="geniuspay-method-logo"></span>',
         );
 
         return isset($icons[$method]) ? $icons[$method] : '<span class="geniuspay-method-emoji">💰</span>';

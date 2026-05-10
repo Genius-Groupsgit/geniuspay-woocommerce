@@ -29,11 +29,10 @@ class GeniusPay_Webhook {
      */
     public function __construct() {
         $this->logger = new GeniusPay_Logger();
-        
-        $gateway = new GeniusPay_Gateway();
-        $this->webhook_secret = $gateway->get_option('webhook_secret');
 
-        // Enregistrer le endpoint webhook
+        $gateway_settings     = get_option('woocommerce_geniuspay_settings', array());
+        $this->webhook_secret = isset($gateway_settings['webhook_secret']) ? $gateway_settings['webhook_secret'] : '';
+
         add_action('woocommerce_api_geniuspay_webhook', array($this, 'process'));
     }
 
@@ -123,8 +122,9 @@ class GeniusPay_Webhook {
         }
 
         $expected_signature = hash_hmac('sha256', $payload, $this->webhook_secret);
-        
-        return hash_equals($expected_signature, $signature);
+        $clean_signature    = str_replace('sha256=', '', $signature);
+
+        return hash_equals($expected_signature, $clean_signature);
     }
 
     /**
@@ -348,5 +348,3 @@ class GeniusPay_Webhook {
     }
 }
 
-// Initialiser le webhook handler
-new GeniusPay_Webhook();

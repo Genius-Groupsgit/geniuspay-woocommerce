@@ -3,7 +3,7 @@
  * Plugin Name: GeniusPay for WooCommerce
  * Plugin URI: https://pay.genius.ci
  * Description: Acceptez les paiements Wave, Orange Money, MTN Money et carte bancaire via GeniusPay
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: GeniusPay
  * Author URI: https://genius.ci
  * License: GPL-2.0+
@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Définir les constantes du plugin
-define('GENIUSPAY_WC_VERSION', '1.0.0');
+define('GENIUSPAY_WC_VERSION', '1.1.0');
 define('GENIUSPAY_WC_PLUGIN_FILE', __FILE__);
 define('GENIUSPAY_WC_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('GENIUSPAY_WC_PLUGIN_URL', plugin_dir_url(__FILE__));
@@ -93,6 +93,7 @@ final class GeniusPay_WooCommerce {
         require_once GENIUSPAY_WC_PLUGIN_DIR . 'includes/class-geniuspay-api.php';
         require_once GENIUSPAY_WC_PLUGIN_DIR . 'includes/class-geniuspay-gateway.php';
         require_once GENIUSPAY_WC_PLUGIN_DIR . 'includes/class-geniuspay-webhook.php';
+        new GeniusPay_Webhook();
     }
 
     /**
