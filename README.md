@@ -2,7 +2,7 @@
 
 Extension WordPress pour accepter les paiements via GeniusPay sur votre boutique WooCommerce.
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
 ![WordPress](https://img.shields.io/badge/WordPress-5.8%2B-blue)
 ![WooCommerce](https://img.shields.io/badge/WooCommerce-5.0%2B-purple)
 ![PHP](https://img.shields.io/badge/PHP-7.4%2B-purple)

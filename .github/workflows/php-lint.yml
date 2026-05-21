@@ -1,0 +1,32 @@
+name: PHP Lint
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    name: PHP Syntax Check
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: ['7.4', '8.0', '8.1', '8.2']
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP ${{ matrix.php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          tools: php-cs-fixer
+
+      - name: Vérification syntaxe PHP
+        run: find . -name "*.php" -not -path "./vendor/*" -not -path "./node_modules/*" | xargs -I {} php -l {}
+
+      - name: Résumé
+        run: echo "Syntaxe PHP valide pour PHP ${{ matrix.php-version }}"

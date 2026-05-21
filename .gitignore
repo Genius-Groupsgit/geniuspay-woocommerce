@@ -1,0 +1,33 @@
+# Dépendances
+/vendor/
+/node_modules/
+
+# Composer
+composer.lock
+
+# IDE & éditeurs
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Claude Code
+.claude/
+
+# Logs
+*.log
+
+# Fichiers de build
+*.zip
+*.tar.gz
+
+# Variables d'environnement
+.env
+.env.local
+
+# WordPress
+wp-config.php
+wp-content/uploads/
+wp-content/cache/
