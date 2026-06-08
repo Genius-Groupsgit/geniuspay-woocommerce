@@ -31,8 +31,8 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
         $this->id = 'geniuspay';
         $this->icon = GENIUSPAY_WC_PLUGIN_URL . 'assets/images/geniuspay-logo.svg';
         $this->has_fields = true;
-        $this->method_title = __('GeniusPay', 'geniuspay-for-woocommerce');
-        $this->method_description = __('Acceptez les paiements Wave, Orange Money, MTN Money et carte bancaire via GeniusPay.', 'geniuspay-for-woocommerce');
+        $this->method_title = __('GeniusPay', 'geniuspay-woocommerce');
+        $this->method_description = __('Acceptez les paiements Wave, Orange Money, MTN Money et carte bancaire via GeniusPay.', 'geniuspay-woocommerce');
         $this->supports = array(
             'products',
             'refunds',
@@ -85,103 +85,102 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
     public function init_form_fields() {
         $this->form_fields = array(
             'enabled' => array(
-                'title' => __('Activer/Désactiver', 'geniuspay-for-woocommerce'),
+                'title' => __('Activer/Désactiver', 'geniuspay-woocommerce'),
                 'type' => 'checkbox',
-                'label' => __('Activer GeniusPay', 'geniuspay-for-woocommerce'),
+                'label' => __('Activer GeniusPay', 'geniuspay-woocommerce'),
                 'default' => 'no',
             ),
             'title' => array(
-                'title' => __('Titre', 'geniuspay-for-woocommerce'),
+                'title' => __('Titre', 'geniuspay-woocommerce'),
                 'type' => 'text',
-                'description' => __('Titre affiché au client lors du checkout.', 'geniuspay-for-woocommerce'),
-                'default' => __('Paiement Mobile & Carte', 'geniuspay-for-woocommerce'),
+                'description' => __('Titre affiché au client lors du checkout.', 'geniuspay-woocommerce'),
+                'default' => __('Paiement Mobile & Carte', 'geniuspay-woocommerce'),
                 'desc_tip' => true,
             ),
             'description' => array(
-                'title' => __('Description', 'geniuspay-for-woocommerce'),
+                'title' => __('Description', 'geniuspay-woocommerce'),
                 'type' => 'textarea',
-                'description' => __('Description affichée au client lors du checkout.', 'geniuspay-for-woocommerce'),
-                'default' => __('Payez en toute sécurité avec Wave, Orange Money, MTN Money ou votre carte bancaire.', 'geniuspay-for-woocommerce'),
+                'description' => __('Description affichée au client lors du checkout.', 'geniuspay-woocommerce'),
+                'default' => __('Payez en toute sécurité avec Wave, Orange Money, MTN Money ou votre carte bancaire.', 'geniuspay-woocommerce'),
                 'desc_tip' => true,
             ),
             'sandbox_mode' => array(
-                'title' => __('Mode Sandbox', 'geniuspay-for-woocommerce'),
+                'title' => __('Mode Sandbox', 'geniuspay-woocommerce'),
                 'type' => 'checkbox',
-                'label' => __('Activer le mode sandbox (test)', 'geniuspay-for-woocommerce'),
+                'label' => __('Activer le mode sandbox (test)', 'geniuspay-woocommerce'),
                 'default' => 'yes',
-                'description' => __('En mode sandbox, aucune transaction réelle n\'est effectuée.', 'geniuspay-for-woocommerce'),
+                'description' => __('En mode sandbox, aucune transaction réelle n\'est effectuée.', 'geniuspay-woocommerce'),
             ),
             'sandbox_api_key' => array(
-                'title' => __('Clé API Sandbox', 'geniuspay-for-woocommerce'),
+                'title' => __('Clé API Sandbox', 'geniuspay-woocommerce'),
                 'type' => 'text',
-                'description' => __('Votre clé API publique sandbox (pk_sandbox_...).', 'geniuspay-for-woocommerce'),
+                'description' => __('Votre clé API publique sandbox (pk_sandbox_...).', 'geniuspay-woocommerce'),
                 'default' => '',
                 'desc_tip' => true,
             ),
             'sandbox_api_secret' => array(
-                'title' => __('Secret API Sandbox', 'geniuspay-for-woocommerce'),
+                'title' => __('Secret API Sandbox', 'geniuspay-woocommerce'),
                 'type' => 'password',
-                'description' => __('Votre clé API secrète sandbox (sk_sandbox_...).', 'geniuspay-for-woocommerce'),
+                'description' => __('Votre clé API secrète sandbox (sk_sandbox_...).', 'geniuspay-woocommerce'),
                 'default' => '',
                 'desc_tip' => true,
             ),
             'live_api_key' => array(
-                'title' => __('Clé API Production', 'geniuspay-for-woocommerce'),
+                'title' => __('Clé API Production', 'geniuspay-woocommerce'),
                 'type' => 'text',
-                'description' => __('Votre clé API publique production (pk_live_...).', 'geniuspay-for-woocommerce'),
+                'description' => __('Votre clé API publique production (pk_live_...).', 'geniuspay-woocommerce'),
                 'default' => '',
                 'desc_tip' => true,
             ),
             'live_api_secret' => array(
-                'title' => __('Secret API Production', 'geniuspay-for-woocommerce'),
+                'title' => __('Secret API Production', 'geniuspay-woocommerce'),
                 'type' => 'password',
-                'description' => __('Votre clé API secrète production (sk_live_...).', 'geniuspay-for-woocommerce'),
+                'description' => __('Votre clé API secrète production (sk_live_...).', 'geniuspay-woocommerce'),
                 'default' => '',
                 'desc_tip' => true,
             ),
             'use_checkout_page' => array(
-                'title' => __('Page de Checkout GeniusPay', 'geniuspay-for-woocommerce'),
+                'title' => __('Page de Checkout GeniusPay', 'geniuspay-woocommerce'),
                 'type' => 'checkbox',
-                'label' => __('Utiliser la page de checkout GeniusPay', 'geniuspay-for-woocommerce'),
+                'label' => __('Utiliser la page de checkout GeniusPay', 'geniuspay-woocommerce'),
                 'default' => 'no',
-                'description' => __('Si activé, le client choisira son moyen de paiement sur la page GeniusPay. Sinon, il le choisira directement dans WooCommerce.', 'geniuspay-for-woocommerce'),
+                'description' => __('Si activé, le client choisira son moyen de paiement sur la page GeniusPay. Sinon, il le choisira directement dans WooCommerce.', 'geniuspay-woocommerce'),
             ),
             'payment_methods' => array(
-                'title' => __('Méthodes de paiement', 'geniuspay-for-woocommerce'),
+                'title' => __('Méthodes de paiement', 'geniuspay-woocommerce'),
                 'type' => 'multiselect',
                 'class' => 'wc-enhanced-select',
-                'description' => __('Sélectionnez les méthodes de paiement à proposer (ignoré si la page de checkout GeniusPay est activée).', 'geniuspay-for-woocommerce'),
+                'description' => __('Sélectionnez les méthodes de paiement à proposer (ignoré si la page de checkout GeniusPay est activée).', 'geniuspay-woocommerce'),
                 'default' => array('wave', 'orange_money', 'mtn_money', 'card'),
                 'options' => array(
-                    'wave' => __('Wave', 'geniuspay-for-woocommerce'),
-                    'orange_money' => __('Orange Money', 'geniuspay-for-woocommerce'),
-                    'mtn_money' => __('MTN Money', 'geniuspay-for-woocommerce'),
-                    'card' => __('Carte bancaire', 'geniuspay-for-woocommerce'),
+                    'wave' => __('Wave', 'geniuspay-woocommerce'),
+                    'orange_money' => __('Orange Money', 'geniuspay-woocommerce'),
+                    'mtn_money' => __('MTN Money', 'geniuspay-woocommerce'),
+                    'card' => __('Carte bancaire', 'geniuspay-woocommerce'),
                 ),
                 'desc_tip' => true,
             ),
             'webhook_section' => array(
-                'title' => __('Configuration Webhook', 'geniuspay-for-woocommerce'),
+                'title' => __('Configuration Webhook', 'geniuspay-woocommerce'),
                 'type' => 'title',
                 'description' => sprintf(
-                    /* translators: %s: Webhook URL */
-                    __('Configurez cette URL dans votre tableau de bord GeniusPay : %s', 'geniuspay-for-woocommerce'),
-                    '<br><code>' . esc_url($this->get_webhook_url()) . '</code>'
+                    __('Configurez cette URL dans votre tableau de bord GeniusPay : %s', 'geniuspay-woocommerce'),
+                    '<br><code>' . $this->get_webhook_url() . '</code>'
                 ),
             ),
             'webhook_secret' => array(
-                'title' => __('Secret Webhook', 'geniuspay-for-woocommerce'),
+                'title' => __('Secret Webhook', 'geniuspay-woocommerce'),
                 'type' => 'password',
-                'description' => __('Secret pour vérifier l\'authenticité des webhooks.', 'geniuspay-for-woocommerce'),
+                'description' => __('Secret pour vérifier l\'authenticité des webhooks.', 'geniuspay-woocommerce'),
                 'default' => wp_generate_password(32, false),
                 'desc_tip' => true,
             ),
             'debug_mode' => array(
-                'title' => __('Mode Debug', 'geniuspay-for-woocommerce'),
+                'title' => __('Mode Debug', 'geniuspay-woocommerce'),
                 'type' => 'checkbox',
-                'label' => __('Activer les logs de débogage', 'geniuspay-for-woocommerce'),
+                'label' => __('Activer les logs de débogage', 'geniuspay-woocommerce'),
                 'default' => 'no',
-                'description' => __('Les logs sont enregistrés dans WooCommerce > État > Logs.', 'geniuspay-for-woocommerce'),
+                'description' => __('Les logs sont enregistrés dans WooCommerce > État > Logs.', 'geniuspay-woocommerce'),
             ),
         );
     }
@@ -192,26 +191,26 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
     public function payment_fields() {
         // Afficher la description
         if ($this->description) {
-            echo wp_kses_post(wpautop(wptexturize($this->description)));
+            echo wpautop(wptexturize($this->description));
         }
 
         // Afficher le badge sandbox
         if ($this->sandbox_mode) {
             echo '<div class="geniuspay-sandbox-notice">';
-            echo '<span class="geniuspay-badge geniuspay-badge-warning">🧪 ' . esc_html__('Mode Test', 'geniuspay-for-woocommerce') . '</span>';
+            echo '<span class="geniuspay-badge geniuspay-badge-warning">🧪 ' . __('Mode Test', 'geniuspay-woocommerce') . '</span>';
             echo '</div>';
         }
 
         // Si mode checkout GeniusPay activé, pas besoin de sélectionner la méthode ici
         if ($this->use_checkout_page) {
             echo '<div class="geniuspay-checkout-notice">';
-            echo '<p>' . esc_html__('Vous serez redirigé vers la page de paiement sécurisée GeniusPay pour choisir votre moyen de paiement.', 'geniuspay-for-woocommerce') . '</p>';
+            echo '<p>' . __('Vous serez redirigé vers la page de paiement sécurisée GeniusPay pour choisir votre moyen de paiement.', 'geniuspay-woocommerce') . '</p>';
             echo '<div class="geniuspay-methods-preview">';
-            echo '<img src="' . esc_url(GENIUSPAY_WC_PLUGIN_URL . 'assets/images/logo/wave.svg') . '" alt="Wave" title="Wave" class="geniuspay-method-logo">';
-            echo '<img src="' . esc_url(GENIUSPAY_WC_PLUGIN_URL . 'assets/images/logo/orange.svg') . '" alt="Orange Money" title="Orange Money" class="geniuspay-method-logo">';
-            echo '<img src="' . esc_url(GENIUSPAY_WC_PLUGIN_URL . 'assets/images/logo/mtn.svg') . '" alt="MTN Money" title="MTN Money" class="geniuspay-method-logo">';
-            echo '<img src="' . esc_url(GENIUSPAY_WC_PLUGIN_URL . 'assets/images/logo/visa.svg') . '" alt="Visa" title="Carte bancaire" class="geniuspay-method-logo">';
-            echo '<img src="' . esc_url(GENIUSPAY_WC_PLUGIN_URL . 'assets/images/logo/mastercard.svg') . '" alt="Mastercard" title="Carte bancaire" class="geniuspay-method-logo">';
+            echo '<img src="' . GENIUSPAY_WC_PLUGIN_URL . 'assets/images/logo/wave.svg" alt="Wave" title="Wave" class="geniuspay-method-logo">';
+            echo '<img src="' . GENIUSPAY_WC_PLUGIN_URL . 'assets/images/logo/orange.svg" alt="Orange Money" title="Orange Money" class="geniuspay-method-logo">';
+            echo '<img src="' . GENIUSPAY_WC_PLUGIN_URL . 'assets/images/logo/mtn.svg" alt="MTN Money" title="MTN Money" class="geniuspay-method-logo">';
+            echo '<img src="' . GENIUSPAY_WC_PLUGIN_URL . 'assets/images/logo/visa.svg" alt="Visa" title="Carte bancaire" class="geniuspay-method-logo">';
+            echo '<img src="' . GENIUSPAY_WC_PLUGIN_URL . 'assets/images/logo/mastercard.svg" alt="Mastercard" title="Carte bancaire" class="geniuspay-method-logo">';
             echo '</div>';
             echo '</div>';
             return;
@@ -221,7 +220,7 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
         if (count($this->enabled_methods) > 1) {
             echo '<div class="geniuspay-payment-methods">';
             echo '<p class="form-row form-row-wide">';
-            echo '<label>' . esc_html__('Choisissez votre méthode de paiement', 'geniuspay-for-woocommerce') . '</label>';
+            echo '<label>' . __('Choisissez votre méthode de paiement', 'geniuspay-woocommerce') . '</label>';
             
             foreach ($this->enabled_methods as $method) {
                 $method_label = $this->get_payment_method_label($method);
@@ -229,7 +228,7 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
                 
                 echo '<label class="geniuspay-method-option">';
                 echo '<input type="radio" name="geniuspay_payment_method" value="' . esc_attr($method) . '" ' . checked($method, 'wave', false) . '>';
-                echo '<span class="geniuspay-method-icon">' . wp_kses_post($method_icon) . '</span>';
+                echo '<span class="geniuspay-method-icon">' . $method_icon . '</span>';
                 echo '<span class="geniuspay-method-label">' . esc_html($method_label) . '</span>';
                 echo '</label>';
             }
@@ -251,14 +250,14 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
             return true;
         }
 
-        if (empty($_POST['geniuspay_payment_method'])) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
-            wc_add_notice(__('Veuillez sélectionner une méthode de paiement.', 'geniuspay-for-woocommerce'), 'error');
+        if (empty($_POST['geniuspay_payment_method'])) {
+            wc_add_notice(__('Veuillez sélectionner une méthode de paiement.', 'geniuspay-woocommerce'), 'error');
             return false;
         }
 
-        $method = sanitize_text_field(wp_unslash($_POST['geniuspay_payment_method'])); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        $method = sanitize_text_field($_POST['geniuspay_payment_method']);
         if (!in_array($method, $this->enabled_methods)) {
-            wc_add_notice(__('Méthode de paiement invalide.', 'geniuspay-for-woocommerce'), 'error');
+            wc_add_notice(__('Méthode de paiement invalide.', 'geniuspay-woocommerce'), 'error');
             return false;
         }
 
@@ -274,29 +273,50 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
         if (!$order) {
             return array(
                 'result' => 'failure',
-                'messages' => __('Commande introuvable.', 'geniuspay-for-woocommerce'),
+                'messages' => __('Commande introuvable.', 'geniuspay-woocommerce'),
             );
         }
 
         // Récupérer la méthode de paiement sélectionnée (null si mode checkout GeniusPay)
         $payment_method = null;
-        if (!$this->use_checkout_page && isset($_POST['geniuspay_payment_method'])) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
-            $payment_method = sanitize_text_field(wp_unslash($_POST['geniuspay_payment_method'])); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        if (!$this->use_checkout_page && isset($_POST['geniuspay_payment_method'])) {
+            $payment_method = sanitize_text_field($_POST['geniuspay_payment_method']);
+        }
+
+        // Récupérer la route générée par WooCommerce
+        $genius_raw_success_url = $this->get_return_url($order);
+
+        // Si Elementor supprime le domaine (URL commençant par /), on réinjecte le domaine complet du site
+        if (strpos($genius_raw_success_url, '/') === 0) {
+            $genius_raw_success_url = home_url($genius_raw_success_url);
+        }
+
+        // Sécurité : Si l'URL n'a toujours pas le protocole http/https, on force l'URL absolue
+        if (!preg_match('~^(?:f|ht)tps?://~i', $genius_raw_success_url)) {
+            $genius_raw_success_url = site_url('/' . ltrim($genius_raw_success_url, '/'));
+        }
+
+        // Récupérer et sécuriser l'URL d'erreur également
+        $genius_raw_error_url = wc_get_checkout_url() . '?geniuspay_error=1&order_id=' . $order_id;
+        if (strpos($genius_raw_error_url, '/') === 0) {
+            $genius_raw_error_url = home_url($genius_raw_error_url);
+        }
+        if (!preg_match('~^(?:f|ht)tps?://~i', $genius_raw_error_url)) {
+            $genius_raw_error_url = site_url('/' . ltrim($genius_raw_error_url, '/'));
         }
 
         // Préparer les données du paiement
         $payment_data = array(
             'amount' => (int) ($order->get_total() * 100) / 100, // Montant en XOF (entier)
             'currency' => $order->get_currency(),
-            /* translators: %s: Order number */
-            'description' => sprintf(__('Commande #%s', 'geniuspay-for-woocommerce'), $order->get_order_number()),
+            'description' => sprintf(__('Commande #%s', 'geniuspay-woocommerce'), $order->get_order_number()),
             'customer' => array(
                 'name' => $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
                 'email' => $order->get_billing_email(),
                 'phone' => $order->get_billing_phone(),
             ),
-            'success_url' => $this->get_return_url($order),
-            'error_url' => wc_get_checkout_url() . '?geniuspay_error=1&order_id=' . $order_id,
+            'success_url' => $genius_raw_success_url,
+            'error_url' => $genius_raw_error_url,
             'metadata' => array(
                 'order_id' => $order_id,
                 'order_key' => $order->get_order_key(),
@@ -318,7 +338,7 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
             $this->logger->log('Payment creation failed for order #' . $order_id . ': ' . $response->get_error_message(), 'error');
             
             wc_add_notice(
-                __('Erreur lors de la création du paiement: ', 'geniuspay-for-woocommerce') . $response->get_error_message(),
+                __('Erreur lors de la création du paiement: ', 'geniuspay-woocommerce') . $response->get_error_message(),
                 'error'
             );
 
@@ -333,7 +353,7 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
         if (!$redirect_url || !isset($response['data']['reference'])) {
             $this->logger->log('Invalid API response for order #' . $order_id, 'error');
             
-            wc_add_notice(__('Réponse invalide de GeniusPay.', 'geniuspay-for-woocommerce'), 'error');
+            wc_add_notice(__('Réponse invalide de GeniusPay.', 'geniuspay-woocommerce'), 'error');
 
             return array(
                 'result' => 'failure',
@@ -352,7 +372,7 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
         $order->save();
 
         // Mettre à jour le statut de la commande
-        $order->update_status('pending', __('En attente du paiement GeniusPay.', 'geniuspay-for-woocommerce'));
+        $order->update_status('pending', __('En attente du paiement GeniusPay.', 'geniuspay-woocommerce'));
 
         // Vider le panier
         WC()->cart->empty_cart();
@@ -390,11 +410,11 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
 
         if ($reference) {
             echo '<div class="geniuspay-thankyou">';
-            echo '<p><strong>' . esc_html__('Référence de paiement:', 'geniuspay-for-woocommerce') . '</strong> ' . esc_html($reference) . '</p>';
+            echo '<p><strong>' . __('Référence de paiement:', 'geniuspay-woocommerce') . '</strong> ' . esc_html($reference) . '</p>';
             
             if ($status === 'pending' || $status === 'on-hold') {
                 echo '<p class="geniuspay-pending-notice">';
-                echo esc_html__('Votre paiement est en cours de traitement. Vous recevrez une confirmation par email.', 'geniuspay-for-woocommerce');
+                echo __('Votre paiement est en cours de traitement. Vous recevrez une confirmation par email.', 'geniuspay-woocommerce');
                 echo '</p>';
             }
             
@@ -414,9 +434,9 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
         
         if ($reference) {
             if ($plain_text) {
-                echo "\n" . esc_html__('Référence de paiement GeniusPay:', 'geniuspay-for-woocommerce') . ' ' . esc_html($reference) . "\n";
+                echo "\n" . __('Référence de paiement GeniusPay:', 'geniuspay-woocommerce') . ' ' . $reference . "\n";
             } else {
-                echo '<p><strong>' . esc_html__('Référence de paiement GeniusPay:', 'geniuspay-for-woocommerce') . '</strong> ' . esc_html($reference) . '</p>';
+                echo '<p><strong>' . __('Référence de paiement GeniusPay:', 'geniuspay-woocommerce') . '</strong> ' . esc_html($reference) . '</p>';
             }
         }
     }
@@ -434,12 +454,11 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
             ?>
             <div class="notice notice-warning">
                 <p>
-                    <strong><?php esc_html_e('GeniusPay:', 'geniuspay-for-woocommerce'); ?></strong>
+                    <strong><?php esc_html_e('GeniusPay:', 'geniuspay-woocommerce'); ?></strong>
                     <?php 
                     printf(
-                        /* translators: 1: opening link tag, 2: closing link tag */
-                        esc_html__('Les clés API ne sont pas configurées. %1$sConfigurer maintenant%2$s', 'geniuspay-for-woocommerce'),
-                        '<a href="' . esc_url(admin_url('admin.php?page=wc-settings&tab=checkout&section=geniuspay')) . '">',
+                        esc_html__('Les clés API ne sont pas configurées. %sConfigurer maintenant%s', 'geniuspay-woocommerce'),
+                        '<a href="' . admin_url('admin.php?page=wc-settings&tab=checkout&section=geniuspay') . '">',
                         '</a>'
                     );
                     ?>
@@ -453,8 +472,8 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
             ?>
             <div class="notice notice-info">
                 <p>
-                    <strong><?php esc_html_e('GeniusPay:', 'geniuspay-for-woocommerce'); ?></strong>
-                    <?php esc_html_e('Le mode sandbox est activé. Aucune transaction réelle ne sera effectuée.', 'geniuspay-for-woocommerce'); ?>
+                    <strong><?php esc_html_e('GeniusPay:', 'geniuspay-woocommerce'); ?></strong>
+                    <?php esc_html_e('Le mode sandbox est activé. Aucune transaction réelle ne sera effectuée.', 'geniuspay-woocommerce'); ?>
                 </p>
             </div>
             <?php
@@ -473,11 +492,11 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
      */
     private function get_payment_method_label($method) {
         $labels = array(
-            'wave' => __('Wave', 'geniuspay-for-woocommerce'),
-            'orange_money' => __('Orange Money', 'geniuspay-for-woocommerce'),
-            'mtn_money' => __('MTN Money', 'geniuspay-for-woocommerce'),
-            'card' => __('Carte bancaire', 'geniuspay-for-woocommerce'),
-            'paystack' => __('Paystack', 'geniuspay-for-woocommerce'),
+            'wave' => __('Wave', 'geniuspay-woocommerce'),
+            'orange_money' => __('Orange Money', 'geniuspay-woocommerce'),
+            'mtn_money' => __('MTN Money', 'geniuspay-woocommerce'),
+            'card' => __('Carte bancaire', 'geniuspay-woocommerce'),
+            'paystack' => __('Paystack', 'geniuspay-woocommerce'),
         );
 
         return isset($labels[$method]) ? $labels[$method] : $method;
@@ -529,6 +548,6 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
      */
     public function process_refund($order_id, $amount = null, $reason = '') {
         // Les remboursements ne sont pas encore supportés par l'API GeniusPay
-        return new WP_Error('refund_not_supported', __('Les remboursements automatiques ne sont pas encore disponibles. Veuillez contacter le support GeniusPay.', 'geniuspay-for-woocommerce'));
+        return new WP_Error('refund_not_supported', __('Les remboursements automatiques ne sont pas encore disponibles. Veuillez contacter le support GeniusPay.', 'geniuspay-woocommerce'));
     }
 }
