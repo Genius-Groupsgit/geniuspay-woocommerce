@@ -17,7 +17,7 @@ class GeniusPay_API {
     /**
      * URL de base de l'API
      */
-    const API_BASE_URL = 'https://pay.genius.ci/api/v1/merchant';
+    const API_BASE_URL = 'https://geniuspay.ci/api/v1/merchant';
 
     /**
      * Clé API publique

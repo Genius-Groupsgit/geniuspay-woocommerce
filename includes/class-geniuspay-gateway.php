@@ -12,7 +12,8 @@ if (!defined('ABSPATH')) {
 /**
  * Classe GeniusPay_Gateway
  */
-class GeniusPay_Gateway extends WC_Payment_Gateway {
+class GeniusPay_Gateway extends WC_Payment_Gateway
+{
 
     /**
      * Instance de l'API
@@ -27,7 +28,8 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
     /**
      * Constructeur
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->id = 'geniuspay';
         $this->icon = GENIUSPAY_WC_PLUGIN_URL . 'assets/images/geniuspay-logo.svg';
         $this->has_fields = true;
@@ -59,7 +61,7 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
 
         // Méthodes de paiement activées
         $this->enabled_methods = $this->get_option('payment_methods', array('wave', 'orange_money', 'mtn_money', 'card'));
-        
+
         // Mode checkout GeniusPay (optionnel)
         $this->use_checkout_page = 'yes' === $this->get_option('use_checkout_page', 'no');
 
@@ -82,7 +84,8 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
     /**
      * Définit les champs du formulaire de configuration
      */
-    public function init_form_fields() {
+    public function init_form_fields()
+    {
         $this->form_fields = array(
             'enabled' => array(
                 'title' => __('Activer/Désactiver', 'geniuspay-woocommerce'),
@@ -142,9 +145,9 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
             'use_checkout_page' => array(
                 'title' => __('Page de Checkout GeniusPay', 'geniuspay-woocommerce'),
                 'type' => 'checkbox',
-                'label' => __('Utiliser la page de checkout GeniusPay', 'geniuspay-woocommerce'),
+                'label' => __('Utiliser la page de checkout GeniusPay', 'geniuspay-for-woocommerce'),
                 'default' => 'no',
-                'description' => __('Si activé, le client choisira son moyen de paiement sur la page GeniusPay. Sinon, il le choisira directement dans WooCommerce.', 'geniuspay-woocommerce'),
+                'description' => __('Si activé, le client choisira son moyen de paiement sur la page GeniusPay. Sinon, il le choisira directement dans WooCommerce.', 'geniuspay-for-woocommerce'),
             ),
             'payment_methods' => array(
                 'title' => __('Méthodes de paiement', 'geniuspay-woocommerce'),
@@ -160,18 +163,47 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
                 ),
                 'desc_tip' => true,
             ),
+            'redirect_section' => array(
+                'title' => __('URLs de Redirection', 'geniuspay-for-woocommerce'),
+                'type' => 'title',
+                'description' => __('Configurez les pages de redirection après paiement. Laissez vide pour utiliser les pages par défaut de WooCommerce (page de remerciement / page de commande).', 'geniuspay-for-woocommerce'),
+            ),
+            'success_url' => array(
+                'title' => __('URL de Succès', 'geniuspay-for-woocommerce'),
+                'type' => 'text',
+                'description' => __('Page vers laquelle le client est redirigé après un paiement réussi. Laissez vide pour utiliser la page de remerciement WooCommerce par défaut.', 'geniuspay-for-woocommerce'),
+                'default' => '',
+                'desc_tip' => true,
+                'placeholder' => home_url('/checkout/order-received/'),
+            ),
+            'error_url' => array(
+                'title' => __('URL d\'Erreur', 'geniuspay-for-woocommerce'),
+                'type' => 'text',
+                'description' => __('Page vers laquelle le client est redirigé en cas d\'échec du paiement. Laissez vide pour utiliser la page de commande WooCommerce par défaut.', 'geniuspay-for-woocommerce'),
+                'default' => '',
+                'desc_tip' => true,
+                'placeholder' => home_url('/checkout/'),
+            ),
             'webhook_section' => array(
                 'title' => __('Configuration Webhook', 'geniuspay-woocommerce'),
                 'type' => 'title',
                 'description' => sprintf(
-                    __('Configurez cette URL dans votre tableau de bord GeniusPay : %s', 'geniuspay-woocommerce'),
-                    '<br><code>' . $this->get_webhook_url() . '</code>'
+                    /* translators: %s: Webhook URL */
+                    __('Configurez cette URL dans votre tableau de bord GeniusPay : %s', 'geniuspay-for-woocommerce'),
+                    '<br><code>' . esc_url($this->get_webhook_url()) . '</code>'
                 ),
             ),
             'webhook_secret' => array(
-                'title' => __('Secret Webhook', 'geniuspay-woocommerce'),
+                'title' => __('Secret Webhook (Live)', 'geniuspay-for-woocommerce'),
                 'type' => 'password',
-                'description' => __('Secret pour vérifier l\'authenticité des webhooks.', 'geniuspay-woocommerce'),
+                'description' => __('Secret pour vérifier l\'authenticité des webhooks en mode Live.', 'geniuspay-for-woocommerce'),
+                'default' => wp_generate_password(32, false),
+                'desc_tip' => true,
+            ),
+            'sandbox_webhook_secret' => array(
+                'title' => __('Secret Webhook (Sandbox)', 'geniuspay-for-woocommerce'),
+                'type' => 'password',
+                'description' => __('Secret pour vérifier l\'authenticité des webhooks en mode Sandbox.', 'geniuspay-for-woocommerce'),
                 'default' => wp_generate_password(32, false),
                 'desc_tip' => true,
             ),
@@ -188,7 +220,8 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
     /**
      * Affiche le formulaire de paiement
      */
-    public function payment_fields() {
+    public function payment_fields()
+    {
         // Afficher la description
         if ($this->description) {
             echo wpautop(wptexturize($this->description));
@@ -204,7 +237,7 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
         // Si mode checkout GeniusPay activé, pas besoin de sélectionner la méthode ici
         if ($this->use_checkout_page) {
             echo '<div class="geniuspay-checkout-notice">';
-            echo '<p>' . __('Vous serez redirigé vers la page de paiement sécurisée GeniusPay pour choisir votre moyen de paiement.', 'geniuspay-woocommerce') . '</p>';
+            echo '<p>' . esc_html__('Vous serez redirigé vers la page de paiement sécurisée GeniusPay pour choisir votre moyen de paiement.', 'geniuspay-for-woocommerce') . '</p>';
             echo '<div class="geniuspay-methods-preview">';
             echo '<img src="' . GENIUSPAY_WC_PLUGIN_URL . 'assets/images/logo/wave.svg" alt="Wave" title="Wave" class="geniuspay-method-logo">';
             echo '<img src="' . GENIUSPAY_WC_PLUGIN_URL . 'assets/images/logo/orange.svg" alt="Orange Money" title="Orange Money" class="geniuspay-method-logo">';
@@ -220,19 +253,19 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
         if (count($this->enabled_methods) > 1) {
             echo '<div class="geniuspay-payment-methods">';
             echo '<p class="form-row form-row-wide">';
-            echo '<label>' . __('Choisissez votre méthode de paiement', 'geniuspay-woocommerce') . '</label>';
+            echo '<label>' . esc_html__('Choisissez votre méthode de paiement', 'geniuspay-for-woocommerce') . '</label>';
             
             foreach ($this->enabled_methods as $method) {
                 $method_label = $this->get_payment_method_label($method);
                 $method_icon = $this->get_payment_method_icon($method);
-                
+
                 echo '<label class="geniuspay-method-option">';
                 echo '<input type="radio" name="geniuspay_payment_method" value="' . esc_attr($method) . '" ' . checked($method, 'wave', false) . '>';
                 echo '<span class="geniuspay-method-icon">' . $method_icon . '</span>';
                 echo '<span class="geniuspay-method-label">' . esc_html($method_label) . '</span>';
                 echo '</label>';
             }
-            
+
             echo '</p>';
             echo '</div>';
         } else {
@@ -244,7 +277,8 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
     /**
      * Valide les champs du formulaire
      */
-    public function validate_fields() {
+    public function validate_fields()
+    {
         // En mode checkout GeniusPay, pas de validation de méthode nécessaire
         if ($this->use_checkout_page) {
             return true;
@@ -267,7 +301,8 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
     /**
      * Traite le paiement
      */
-    public function process_payment($order_id) {
+    public function process_payment($order_id)
+    {
         $order = wc_get_order($order_id);
 
         if (!$order) {
@@ -283,8 +318,23 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
             $payment_method = sanitize_text_field($_POST['geniuspay_payment_method']);
         }
 
-        // Récupérer la route générée par WooCommerce
-        $genius_raw_success_url = $this->get_return_url($order);
+        // Récupérer les URLs de redirection configurées (ou fallback WooCommerce)
+        $custom_success_url = $this->get_option('success_url', '');
+        $custom_error_url = $this->get_option('error_url', '');
+
+        // URL de succès : custom ou page de remerciement WooCommerce
+        if (!empty($custom_success_url)) {
+            $genius_raw_success_url = $custom_success_url;
+            // Ajouter l'order_id et la key si la URL contient des placeholders
+            if (strpos($genius_raw_success_url, '{order_id}') !== false) {
+                $genius_raw_success_url = str_replace('{order_id}', $order_id, $genius_raw_success_url);
+            }
+            if (strpos($genius_raw_success_url, '{order_key}') !== false) {
+                $genius_raw_success_url = str_replace('{order_key}', $order->get_order_key(), $genius_raw_success_url);
+            }
+        } else {
+            $genius_raw_success_url = $this->get_return_url($order);
+        }
 
         // Si Elementor supprime le domaine (URL commençant par /), on réinjecte le domaine complet du site
         if (strpos($genius_raw_success_url, '/') === 0) {
@@ -296,8 +346,16 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
             $genius_raw_success_url = site_url('/' . ltrim($genius_raw_success_url, '/'));
         }
 
-        // Récupérer et sécuriser l'URL d'erreur également
-        $genius_raw_error_url = wc_get_checkout_url() . '?geniuspay_error=1&order_id=' . $order_id;
+        // URL d'erreur : custom ou page de checkout WooCommerce
+        if (!empty($custom_error_url)) {
+            $genius_raw_error_url = $custom_error_url;
+            if (strpos($genius_raw_error_url, '{order_id}') !== false) {
+                $genius_raw_error_url = str_replace('{order_id}', $order_id, $genius_raw_error_url);
+            }
+        } else {
+            $genius_raw_error_url = wc_get_checkout_url() . '?geniuspay_error=1&order_id=' . $order_id;
+        }
+
         if (strpos($genius_raw_error_url, '/') === 0) {
             $genius_raw_error_url = home_url($genius_raw_error_url);
         }
@@ -305,15 +363,22 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
             $genius_raw_error_url = site_url('/' . ltrim($genius_raw_error_url, '/'));
         }
 
+        // Normaliser le numéro de téléphone au format international
+        $phone = $this->normalize_phone_number(
+            $order->get_billing_phone(),
+            $order->get_billing_country()
+        );
+
         // Préparer les données du paiement
         $payment_data = array(
-            'amount' => (int) ($order->get_total() * 100) / 100, // Montant en XOF (entier)
+            'amount' => (float) $order->get_total(), // Montant avec décimales
             'currency' => $order->get_currency(),
             'description' => sprintf(__('Commande #%s', 'geniuspay-woocommerce'), $order->get_order_number()),
             'customer' => array(
                 'name' => $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
                 'email' => $order->get_billing_email(),
-                'phone' => $order->get_billing_phone(),
+                'phone' => $phone,
+                'country' => $order->get_billing_country(),
             ),
             'success_url' => $genius_raw_success_url,
             'error_url' => $genius_raw_error_url,
@@ -336,7 +401,7 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
 
         if (is_wp_error($response)) {
             $this->logger->log('Payment creation failed for order #' . $order_id . ': ' . $response->get_error_message(), 'error');
-            
+
             wc_add_notice(
                 __('Erreur lors de la création du paiement: ', 'geniuspay-woocommerce') . $response->get_error_message(),
                 'error'
@@ -349,11 +414,11 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
 
         // Vérifier la réponse (checkout_url ou payment_url selon le mode)
         $redirect_url = $response['data']['checkout_url'] ?? $response['data']['payment_url'] ?? null;
-        
+
         if (!$redirect_url || !isset($response['data']['reference'])) {
             $this->logger->log('Invalid API response for order #' . $order_id, 'error');
             
-            wc_add_notice(__('Réponse invalide de GeniusPay.', 'geniuspay-woocommerce'), 'error');
+            wc_add_notice(__('Réponse invalide de GeniusPay.', 'geniuspay-for-woocommerce'), 'error');
 
             return array(
                 'result' => 'failure',
@@ -364,7 +429,7 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
         $order->update_meta_data('_geniuspay_reference', $response['data']['reference']);
         $order->update_meta_data('_geniuspay_payment_method', $payment_method);
         $order->update_meta_data('_geniuspay_environment', $this->sandbox_mode ? 'sandbox' : 'live');
-        
+
         if (isset($response['data']['gateway_reference'])) {
             $order->update_meta_data('_geniuspay_gateway_reference', $response['data']['gateway_reference']);
         }
@@ -389,7 +454,8 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
     /**
      * Gère le callback de retour
      */
-    public function handle_callback() {
+    public function handle_callback()
+    {
         // Géré par la classe GeniusPay_Webhook
         $webhook = new GeniusPay_Webhook();
         $webhook->process();
@@ -398,9 +464,10 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
     /**
      * Page de remerciement
      */
-    public function thankyou_page($order_id) {
+    public function thankyou_page($order_id)
+    {
         $order = wc_get_order($order_id);
-        
+
         if (!$order) {
             return;
         }
@@ -410,14 +477,14 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
 
         if ($reference) {
             echo '<div class="geniuspay-thankyou">';
-            echo '<p><strong>' . __('Référence de paiement:', 'geniuspay-woocommerce') . '</strong> ' . esc_html($reference) . '</p>';
+            echo '<p><strong>' . esc_html__('Référence de paiement:', 'geniuspay-for-woocommerce') . '</strong> ' . esc_html($reference) . '</p>';
             
             if ($status === 'pending' || $status === 'on-hold') {
                 echo '<p class="geniuspay-pending-notice">';
                 echo __('Votre paiement est en cours de traitement. Vous recevrez une confirmation par email.', 'geniuspay-woocommerce');
                 echo '</p>';
             }
-            
+
             echo '</div>';
         }
     }
@@ -425,13 +492,14 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
     /**
      * Instructions dans l'email
      */
-    public function email_instructions($order, $sent_to_admin, $plain_text = false) {
+    public function email_instructions($order, $sent_to_admin, $plain_text = false)
+    {
         if ($order->get_payment_method() !== $this->id) {
             return;
         }
 
         $reference = $order->get_meta('_geniuspay_reference');
-        
+
         if ($reference) {
             if ($plain_text) {
                 echo "\n" . __('Référence de paiement GeniusPay:', 'geniuspay-woocommerce') . ' ' . $reference . "\n";
@@ -444,7 +512,8 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
     /**
      * Notices admin
      */
-    public function admin_notices() {
+    public function admin_notices()
+    {
         if (!$this->enabled) {
             return;
         }
@@ -454,7 +523,7 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
             ?>
             <div class="notice notice-warning">
                 <p>
-                    <strong><?php esc_html_e('GeniusPay:', 'geniuspay-woocommerce'); ?></strong>
+                    <strong><?php esc_html_e('GeniusPay:', 'geniuspay-for-woocommerce'); ?></strong>
                     <?php 
                     printf(
                         esc_html__('Les clés API ne sont pas configurées. %sConfigurer maintenant%s', 'geniuspay-woocommerce'),
@@ -483,14 +552,16 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
     /**
      * Retourne l'URL du webhook
      */
-    public function get_webhook_url() {
+    public function get_webhook_url()
+    {
         return add_query_arg('wc-api', 'geniuspay_webhook', home_url('/'));
     }
 
     /**
      * Retourne le libellé d'une méthode de paiement
      */
-    private function get_payment_method_label($method) {
+    private function get_payment_method_label($method)
+    {
         $labels = array(
             'wave' => __('Wave', 'geniuspay-woocommerce'),
             'orange_money' => __('Orange Money', 'geniuspay-woocommerce'),
@@ -505,9 +576,10 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
     /**
      * Retourne l'icône d'une méthode de paiement
      */
-    private function get_payment_method_icon($method) {
+    private function get_payment_method_icon($method)
+    {
         $logo_base_url = GENIUSPAY_WC_PLUGIN_URL . 'assets/images/logo/';
-        
+
         $icons = array(
             'wave' => '<img src="' . $logo_base_url . 'wave.svg" alt="Wave" class="geniuspay-method-logo">',
             'orange_money' => '<img src="' . $logo_base_url . 'orange.svg" alt="Orange Money" class="geniuspay-method-logo">',
@@ -522,7 +594,8 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
     /**
      * Vérifie si la passerelle est disponible
      */
-    public function is_available() {
+    public function is_available()
+    {
         if (!parent::is_available()) {
             return false;
         }
@@ -535,7 +608,7 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
         // Vérifier la devise (GeniusPay supporte principalement XOF)
         $currency = get_woocommerce_currency();
         $supported_currencies = array('XOF', 'XAF', 'EUR', 'USD');
-        
+
         if (!in_array($currency, $supported_currencies)) {
             return false;
         }
@@ -546,8 +619,93 @@ class GeniusPay_Gateway extends WC_Payment_Gateway {
     /**
      * Traite un remboursement
      */
-    public function process_refund($order_id, $amount = null, $reason = '') {
+    public function process_refund($order_id, $amount = null, $reason = '')
+    {
         // Les remboursements ne sont pas encore supportés par l'API GeniusPay
         return new WP_Error('refund_not_supported', __('Les remboursements automatiques ne sont pas encore disponibles. Veuillez contacter le support GeniusPay.', 'geniuspay-woocommerce'));
+    }
+
+    /**
+     * Normalise le numéro de téléphone au format international
+     * 
+     * @param string $phone Numéro de téléphone brut
+     * @param string $country Code pays ISO 2 (ex: CI, FR, SN)
+     * @return string Numéro normalisé avec indicatif pays
+     */
+    private function normalize_phone_number($phone, $country = '')
+    {
+        if (empty($phone)) {
+            return '';
+        }
+
+        // Supprimer tous les caractères non numériques sauf le +
+        $phone = preg_replace('/[^0-9+]/', '', $phone);
+
+        // Si déjà au format international (+XXX ou 00XXX), retourner tel quel
+        if (strpos($phone, '+') === 0) {
+            return $phone; // Déjà avec +
+        }
+
+        if (strpos($phone, '00') === 0) {
+            return '+' . substr($phone, 2); // Convertir 00XXX en +XXX
+        }
+
+        // Indicatifs téléphoniques par pays (principaux pays africains)
+        $country_codes = array(
+            'CI' => '225', // Côte d'Ivoire
+            'SN' => '221', // Sénégal
+            'BJ' => '229', // Bénin
+            'TG' => '228', // Togo
+            'BF' => '226', // Burkina Faso
+            'ML' => '223', // Mali
+            'NE' => '227', // Niger
+            'GN' => '224', // Guinée
+            'CM' => '237', // Cameroun
+            'GA' => '241', // Gabon
+            'CD' => '243', // RD Congo
+            'CG' => '242', // Congo
+            'RW' => '250', // Rwanda
+            'KE' => '254', // Kenya
+            'UG' => '256', // Ouganda
+            'TZ' => '255', // Tanzanie
+            'ZM' => '260', // Zambie
+            'GH' => '233', // Ghana
+            'NG' => '234', // Nigeria
+            'MA' => '212', // Maroc
+            'TN' => '216', // Tunisie
+            'DZ' => '213', // Algérie
+            'EG' => '20',  // Égypte
+            'ZA' => '27',  // Afrique du Sud
+            'FR' => '33',  // France
+            'BE' => '32',  // Belgique
+            'CH' => '41',  // Suisse
+            'CA' => '1',   // Canada
+            'US' => '1',   // États-Unis
+        );
+
+        // Si le numéro commence déjà par un indicatif connu, retourner avec +
+        foreach ($country_codes as $code) {
+            if (strpos($phone, $code) === 0) {
+                return '+' . $phone;
+            }
+        }
+
+        // Si le numéro commence par 0 (format local), retirer le 0 et ajouter l'indicatif
+        if (strpos($phone, '0') === 0 && !empty($country) && isset($country_codes[$country])) {
+            $phone = substr($phone, 1); // Retirer le 0 initial
+            return '+' . $country_codes[$country] . $phone;
+        }
+
+        // Si on a un code pays mais le numéro ne commence pas par 0
+        if (!empty($country) && isset($country_codes[$country])) {
+            // Vérifier si le numéro ne commence pas déjà par l'indicatif
+            if (strpos($phone, $country_codes[$country]) !== 0) {
+                return '+' . $country_codes[$country] . $phone;
+            }
+            return '+' . $phone;
+        }
+
+        // Par défaut, retourner le numéro nettoyé avec + si pas d'indicatif détecté
+        return '+' . $phone;
     }
 }
